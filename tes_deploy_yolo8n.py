@@ -10,11 +10,11 @@ gst_pipeline = (
 )
 
 gst_pipeline_USB = (
-    "v4l2src device=/dev/video0 ! video/x-raw, width=640, height=480, framerate=30/1 ! videoconvert ! video/x-raw, format=BGR ! appsink"
+    "v4l2src device=/dev/video0 ! video/x-raw, width=416, height=416, framerate=60/1 ! videoconvert ! video/x-raw, format=BGR ! appsink"
 )
 
 # Open camera using GStreamer pipeline
-cap = cv2.VideoCapture(gst_pipeline_USB, cv2.CAP_GSTREAMER)
+cap = cv2.VideoCapture(0    )
 
 if not cap.isOpened():
     print("Error: Could not open camera.")
@@ -22,7 +22,7 @@ if not cap.isOpened():
 
 # Load YOLOv8 model with CUDA
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
-model = YOLO("yolo8n_dasar.pt").to(device)
+model = YOLO("yolov8n2.pt").to(device)
 
 # FPS calculation
 prev_time = 0
